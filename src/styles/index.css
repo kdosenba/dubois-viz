@@ -1,0 +1,10 @@
+/* ==========================================================================
+   dubois-viz — Default Non-Invasive Stylesheet Bundle
+   Safe to import into any host web app. For full-screen 100dvh decks, also
+   import 'dubois-viz/styles/exhibition'. For Google Fonts, import 'dubois-viz/styles/fonts'.
+   ========================================================================== */
+
+@import './tokens.css';
+@import './base.css';
+@import './controls.css';
+@import './plates.css';

@@ -1,0 +1,67 @@
+/* ==========================================================================
+   dubois-viz — Design Tokens (Surface, Palette A, Palette B, Typography)
+   Zero element selectors; safe to import in any application.
+   ========================================================================== */
+
+:root {
+  /* 1. Surface & Ink Tokens ("The Page Is the Border") */
+  --dubois-parchment: #F4EFE6;
+  --dubois-vellum: #EAE2D3;
+  --dubois-warm-tan: #D2B48C;
+  --dubois-unfocused: #DED6C6;
+  --dubois-ink: #1A1615;
+  --dubois-charcoal: #52493E;
+  --dubois-guideline: #8C7A6B;
+
+  /* 2. Palette A — Primary Categorical Gouache (100% Flat-Opaque) */
+  --dubois-crimson: #DC143C;
+  --dubois-cobalt: #2B5B84;
+  --dubois-emerald: #008055;
+  --dubois-gold: #FFD700;
+  --dubois-ochre: #E87722;
+  --dubois-violet: #753ABD;
+  --dubois-teal: #00A7B5;
+  --dubois-umber: #654321;
+
+  /* 3. Palette B — 14-Step Ordered Sequential Spectrum (Full Saturation) */
+  --dubois-seq-01: #A50050;
+  --dubois-seq-02: #DC143C;
+  --dubois-seq-03: #EE5340;
+  --dubois-seq-04: #FFA400;
+  --dubois-seq-05: #FFCD00;
+  --dubois-seq-06: #FAE053;
+  --dubois-seq-07: #DBE442;
+  --dubois-seq-08: #8FD14F;
+  --dubois-seq-09: #00A651;
+  --dubois-seq-10: #007A5E;
+  --dubois-seq-11: #00A7B5;
+  --dubois-seq-12: #2B5B84;
+  --dubois-seq-13: #6638B6;
+  --dubois-seq-14: #AF3BC9;
+
+  /* 4. Palette B — 14-Step Vellum-Tinted Partner Spectrum */
+  --dubois-seq-01-tint: #C96B8E;
+  --dubois-seq-02-tint: #E67384;
+  --dubois-seq-03-tint: #F09583;
+  --dubois-seq-04-tint: #F5C16C;
+  --dubois-seq-05-tint: #F7DB7C;
+  --dubois-seq-06-tint: #F6E89E;
+  --dubois-seq-07-tint: #E4E895;
+  --dubois-seq-08-tint: #BBE094;
+  --dubois-seq-09-tint: #6FC493;
+  --dubois-seq-10-tint: #6BA896;
+  --dubois-seq-11-tint: #74C7CE;
+  --dubois-seq-12-tint: #7E98AF;
+  --dubois-seq-13-tint: #A187CE;
+  --dubois-seq-14-tint: #CCA3D9;
+
+  /* 5. Three-Font Archival Typography Stack */
+  --dubois-font-title: 'Inter', 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --dubois-font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --dubois-font-mono: 'Space Mono', 'IBM Plex Mono', monospace;
+
+  /* 6. Structural Dimensions */
+  --dubois-whisper-bar-height: 32px;
+  --dubois-ink-border-width: 1px;
+  --dubois-ink-border-heavy: 1.5px;
+}

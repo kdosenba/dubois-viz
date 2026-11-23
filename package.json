@@ -1,0 +1,144 @@
+{
+  "name": "dubois-viz",
+  "version": "0.1.0",
+  "description": "Framework-agnostic, self-contained D3.js visualization library and design system inspired by W.E.B. Du Bois's 1900 Paris Exposition archival gouache plates.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles": "./dist/styles/index.css",
+    "./styles/tokens": "./dist/styles/tokens.css",
+    "./styles/fonts": "./dist/styles/fonts.css",
+    "./styles/base": "./dist/styles/base.css",
+    "./styles/controls": "./dist/styles/controls.css",
+    "./styles/plates": "./dist/styles/plates.css",
+    "./styles/exhibition": "./dist/styles/exhibition.css",
+    "./contracts": {
+      "types": "./dist/contracts/index.d.ts",
+      "import": "./dist/contracts/index.js"
+    },
+    "./sync": {
+      "types": "./dist/sync/index.d.ts",
+      "import": "./dist/sync/index.js"
+    },
+    "./controls": {
+      "types": "./dist/controls/index.d.ts",
+      "import": "./dist/controls/index.js"
+    },
+    "./plates": {
+      "types": "./dist/plates/index.d.ts",
+      "import": "./dist/plates/index.js"
+    },
+    "./charts": {
+      "types": "./dist/charts/index.d.ts",
+      "import": "./dist/charts/index.js"
+    },
+    "./charts/columns": {
+      "types": "./dist/charts/columns.d.ts",
+      "import": "./dist/charts/columns.js"
+    },
+    "./charts/butterfly": {
+      "types": "./dist/charts/butterfly.d.ts",
+      "import": "./dist/charts/butterfly.js"
+    },
+    "./charts/line-chart": {
+      "types": "./dist/charts/line-chart.d.ts",
+      "import": "./dist/charts/line-chart.js"
+    },
+    "./charts/stacked-area": {
+      "types": "./dist/charts/stacked-area.d.ts",
+      "import": "./dist/charts/stacked-area.js"
+    },
+    "./charts/histogram": {
+      "types": "./dist/charts/histogram.d.ts",
+      "import": "./dist/charts/histogram.js"
+    },
+    "./charts/heatmap": {
+      "types": "./dist/charts/heatmap.d.ts",
+      "import": "./dist/charts/heatmap.js"
+    },
+    "./charts/table": {
+      "types": "./dist/charts/table.d.ts",
+      "import": "./dist/charts/table.js"
+    },
+    "./charts/ratio-pyramids": {
+      "types": "./dist/charts/ratio-pyramids.d.ts",
+      "import": "./dist/charts/ratio-pyramids.js"
+    },
+    "./charts/radial-coil": {
+      "types": "./dist/charts/radial-coil.d.ts",
+      "import": "./dist/charts/radial-coil.js"
+    },
+    "./charts/radial-dynamo": {
+      "types": "./dist/charts/radial-dynamo.d.ts",
+      "import": "./dist/charts/radial-dynamo.js"
+    },
+    "./charts/sparkline": {
+      "types": "./dist/charts/sparkline.d.ts",
+      "import": "./dist/charts/sparkline.js"
+    },
+    "./charts/map": {
+      "types": "./dist/charts/map.d.ts",
+      "import": "./dist/charts/map.js"
+    },
+    "./charts/toc-bookshelf": {
+      "types": "./dist/charts/toc-bookshelf.d.ts",
+      "import": "./dist/charts/toc-bookshelf.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src/charts",
+    "src/styles",
+    "DESIGN_LANGUAGE.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "verify": "tsx scripts/verify-conformance.ts",
+    "build:lib": "tsx scripts/build-lib.ts",
+    "build:showcase": "tsx scripts/build-showcase.ts",
+    "build": "npm run typecheck && npm run verify && npm run build:lib && npm run build:showcase",
+    "prepare": "npm run build:lib"
+  },
+  "peerDependencies": {
+    "d3": "^7.0.0",
+    "page-flip": "^2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "page-flip": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/node": "^22.0.0",
+    "d3": "^7.9.0",
+    "esbuild": "^0.24.0",
+    "page-flip": "^2.0.7",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "keywords": [
+    "d3",
+    "dataviz",
+    "charts",
+    "du-bois",
+    "visualization",
+    "typescript",
+    "svg"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kdosenba/dubois-viz.git"
+  }
+}

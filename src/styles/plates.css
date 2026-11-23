@@ -1,0 +1,375 @@
+/* ==========================================================================
+   dubois-viz — Pluggable Exhibition Plate Layouts
+   SinglePlate, SmallMultiplesPlate, SyncedStackPlate, FlipBookPlate, TitlePlate
+   Strictly scoped to .dubois-* classes.
+   ========================================================================== */
+
+.dubois-plate,
+.dubois-plate * {
+  box-sizing: border-box;
+}
+
+.dubois-plate {
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 360px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  color: var(--dubois-ink, #1A1615);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(10px, 1.6vw, 20px) clamp(14px, 2.2vw, 28px);
+}
+
+.dubois-plate-header {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+  align-items: start;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-block-end: 6px;
+}
+
+.dubois-plate-header-center {
+  text-align: center;
+  min-inline-size: 0;
+}
+
+.dubois-plate-header-left,
+.dubois-plate-header-right {
+  min-inline-size: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.dubois-plate-header-right {
+  justify-content: flex-end;
+}
+
+.dubois-plate-numeral {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dubois-charcoal, #52493E);
+  margin-block-end: 2px;
+}
+
+.dubois-plate-title {
+  margin: 0;
+  font-family: var(--dubois-font-title, sans-serif);
+  font-weight: 800;
+  font-size: clamp(15px, 1.75vw, 22px);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  line-height: 1.15;
+}
+
+.dubois-plate-subtitle {
+  margin: 4px auto 0;
+  font-family: var(--dubois-font-serif, Georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(13px, 1.15vw, 16px);
+  line-height: 1.35;
+  color: var(--dubois-charcoal, #52493E);
+  max-inline-size: 720px;
+}
+
+.dubois-plate-legend-host {
+  flex-shrink: 0;
+  inline-size: 100%;
+  margin-block-end: 4px;
+}
+
+.dubois-plate-stage {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative;
+  inline-size: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dubois-corner-inset {
+  inline-size: 260px;
+  block-size: 136px;
+  flex-shrink: 0;
+}
+
+/* Small Multiples / Compare / Atlas Grid */
+.dubois-multiples-grid {
+  flex: 1 1 0%;
+  min-block-size: 0;
+  inline-size: 100%;
+  display: grid;
+  gap: 8px 12px;
+}
+
+.dubois-multiples-grid--atlas {
+  overflow-y: auto;
+  overflow-x: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-auto-rows: 270px;
+  gap: 2px;
+  align-content: start;
+}
+
+.dubois-multiples-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+  background-color: var(--dubois-parchment, #F4EFE6);
+}
+
+.dubois-multiples-cell--alt {
+  background-color: var(--dubois-vellum, #EAE2D3);
+}
+
+.dubois-multiples-cell-header {
+  text-align: center;
+  padding: 4px 6px 2px;
+  flex-shrink: 0;
+}
+
+.dubois-multiples-cell-title {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: var(--dubois-font-title, sans-serif);
+  font-weight: 800;
+  font-size: 11.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  cursor: default;
+  padding: 0;
+}
+
+.dubois-multiples-cell-title--clickable {
+  cursor: pointer;
+}
+
+.dubois-multiples-cell-title--clickable:hover {
+  color: var(--dubois-crimson, #DC143C);
+  text-decoration: underline;
+}
+
+.dubois-multiples-cell-subtitle {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 9px;
+  color: var(--dubois-charcoal, #52493E);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dubois-multiples-cell-body {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative;
+}
+
+.dubois-atlas-group-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-inline-start: 5px solid var(--dubois-crimson, #DC143C);
+  background-color: var(--dubois-parchment, #F4EFE6);
+}
+
+.dubois-atlas-group-tile--alt {
+  border-inline-start-color: var(--dubois-cobalt, #2B5B84);
+  background-color: var(--dubois-vellum, #EAE2D3);
+}
+
+/* Synced Stack Plate (Vertically aligned sections + diamond dividers) */
+.dubois-stack-container {
+  flex: 1 1 0%;
+  min-block-size: 0;
+  inline-size: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dubois-stack-section {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+.dubois-stack-section-title {
+  font-family: var(--dubois-font-title, sans-serif);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  padding: 2px 0 3px;
+  flex-shrink: 0;
+}
+
+.dubois-stack-section-body {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative;
+}
+
+.dubois-diamond-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  flex-shrink: 0;
+}
+
+.dubois-diamond-divider::before,
+.dubois-diamond-divider::after {
+  content: '';
+  flex: 1 1 0%;
+  block-size: 1px;
+  background-color: var(--dubois-guideline, #8C7A6B);
+  opacity: 0.5;
+}
+
+.dubois-diamond-mark {
+  inline-size: 7px;
+  block-size: 7px;
+  background-color: var(--dubois-ink, #1A1615);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* FlipBook Plate */
+.dubois-flipbook-stage {
+  position: relative;
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: hidden;
+}
+
+.dubois-flipbook-page {
+  inline-size: 100%;
+  block-size: 100%;
+  background-color: var(--dubois-parchment, #F4EFE6);
+}
+
+.dubois-flipbook-nav {
+  position: absolute;
+  inset-block-end: 10px;
+  inset-inline-end: 14px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--dubois-vellum, #EAE2D3);
+  border: 1.5px solid var(--dubois-ink, #1A1615);
+  padding: 3px 8px;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dubois-flipbook-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--dubois-ink, #1A1615);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+.dubois-flipbook-btn:hover:not(:disabled) {
+  color: var(--dubois-crimson, #DC143C);
+}
+
+.dubois-flipbook-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Title Cover Plate */
+.dubois-title-plate {
+  position: relative;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 460px;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dubois-title-plate-bg {
+  flex: 1 1 0%;
+  min-block-size: 0;
+  inline-size: 100%;
+  order: 2;
+}
+
+.dubois-title-plate-overlay {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  order: 1;
+  padding: clamp(16px, 2.4vw, 30px) clamp(20px, 4vw, 56px) 6px;
+  text-align: center;
+}
+
+.dubois-title-plate-kicker {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dubois-crimson, #DC143C);
+  margin-block-end: 8px;
+}
+
+.dubois-title-plate-heading {
+  margin: 0 auto;
+  max-inline-size: 860px;
+  font-family: var(--dubois-font-title, sans-serif);
+  font-weight: 800;
+  font-size: clamp(22px, 3vw, 40px);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  line-height: 1.12;
+}
+
+.dubois-title-plate-lead {
+  margin: 10px auto 0;
+  max-inline-size: 660px;
+  font-family: var(--dubois-font-serif, Georgia, serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.4vw, 19px);
+  color: var(--dubois-charcoal, #52493E);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .dubois-plate-header {
+    grid-template-columns: 1fr;
+  }
+
+  .dubois-corner-inset {
+    display: none;
+  }
+}

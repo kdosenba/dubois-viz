@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-showcase/
+*.tsbuildinfo
+
+# Environment & local caches
+.env
+.env.*
+.cache/
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*

@@ -1,0 +1,317 @@
+/* ==========================================================================
+   dubois-viz — Base Chart Root, Legend Strip, Tooltip & SVG Gouache Rules
+   Strictly scoped to .dubois-* classes; never mutates host page globals.
+   ========================================================================== */
+
+.dubois-chart-root,
+.dubois-chart-root *,
+.dubois-chart-root *::before,
+.dubois-chart-root *::after {
+  box-sizing: border-box;
+}
+
+.dubois-chart-root {
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  color: var(--dubois-ink, #1A1615);
+  font-family: var(--dubois-font-serif, Georgia, serif);
+  position: relative;
+  overflow: hidden;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.dubois-chart-svg-wrap {
+  flex: 1 1 0%;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dubois-chart-svg {
+  inline-size: 100%;
+  block-size: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.dubois-empty-notice {
+  margin: auto;
+  padding: 16px 24px;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dubois-charcoal, #52493E);
+  text-align: center;
+}
+
+/* Unified Legend Strip */
+.dubois-legend-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 16px;
+  padding: 4px 10px 6px;
+  flex-shrink: 0;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+}
+
+.dubois-chart-root--micro .dubois-legend-strip {
+  gap: 6px 10px;
+  font-size: 8.5px;
+  padding: 2px 4px 3px;
+}
+
+.dubois-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 1px 3px;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-item--interactive {
+  cursor: pointer;
+}
+
+.dubois-legend-item--interactive:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dubois-legend-item--switch {
+  color: var(--dubois-charcoal, #52493E);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 3px;
+}
+
+.dubois-legend-item--switch:hover {
+  color: var(--dubois-crimson, #DC143C);
+  text-decoration-style: solid;
+}
+
+.dubois-legend-item--active {
+  font-weight: 700;
+  color: var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-item--inactive {
+  opacity: 0.45;
+}
+
+.dubois-legend-swatch {
+  inline-size: 12px;
+  block-size: 12px;
+  border: 1px solid var(--dubois-ink, #1A1615);
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.dubois-legend-swatch--dashed {
+  inline-size: 16px;
+  block-size: 0;
+  background: transparent !important;
+  border: none;
+  border-block-start: 2px dashed var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-swatch--line {
+  inline-size: 16px;
+  block-size: 3px;
+  border: 0.5px solid var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-swatch--dot {
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+}
+
+/* Inline Mode Switcher Pill (used by charts with optional modes) */
+.dubois-mode-group {
+  display: inline-flex;
+  border: 1px solid var(--dubois-ink, #1A1615);
+  background-color: var(--dubois-vellum, #EAE2D3);
+}
+
+.dubois-mode-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--dubois-charcoal, #52493E);
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+.dubois-mode-btn + .dubois-mode-btn {
+  border-inline-start: 1px solid var(--dubois-ink, #1A1615);
+}
+
+.dubois-mode-btn--active {
+  background-color: var(--dubois-ink, #1A1615);
+  color: var(--dubois-parchment, #F4EFE6);
+}
+
+/* Tactile Vellum Tooltip */
+.dubois-exhibition-tooltip {
+  position: fixed;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  border: 2px solid var(--dubois-ink, #1A1615);
+  box-shadow: 4px 4px 0px var(--dubois-ink, #1A1615);
+  border-radius: 0;
+  padding: 0;
+  min-inline-size: min(210px, calc(100vw - 16px));
+  max-inline-size: min(340px, calc(100vw - 16px));
+  pointer-events: none;
+  z-index: 1200;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 11px;
+  color: var(--dubois-ink, #1A1615);
+  box-sizing: border-box;
+}
+
+.dubois-exhibition-tooltip-header {
+  background-color: var(--dubois-ink, #1A1615);
+  color: var(--dubois-parchment, #F4EFE6);
+  padding: 6px 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dubois-exhibition-tooltip-swatch {
+  inline-size: 10px;
+  block-size: 10px;
+  border: 1px solid var(--dubois-parchment, #F4EFE6);
+  flex-shrink: 0;
+}
+
+.dubois-exhibition-tooltip-body {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dubois-exhibition-tooltip-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dubois-exhibition-tooltip-key {
+  color: var(--dubois-charcoal, #52493E);
+  font-weight: 400;
+}
+
+.dubois-exhibition-tooltip-val {
+  color: var(--dubois-ink, #1A1615);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Canonical SVG Gouache & Ink Rules */
+.dubois-chart-svg .dubois-gouache-mark {
+  fill-opacity: 1 !important;
+  stroke: var(--dubois-ink, #1A1615);
+  stroke-width: 1px;
+}
+
+.dubois-chart-svg .dubois-benchmark-tick {
+  stroke: var(--dubois-ink, #1A1615);
+  stroke-width: 1.5px;
+  stroke-dasharray: 2, 2;
+  fill: none;
+  pointer-events: none;
+}
+
+.dubois-chart-svg .dubois-benchmark-cap {
+  stroke: var(--dubois-ink, #1A1615);
+  stroke-width: 1.5px;
+  stroke-dasharray: 3, 2;
+  fill: none;
+  pointer-events: none;
+}
+
+.dubois-chart-svg .dubois-axis-spine {
+  stroke: var(--dubois-ink, #1A1615);
+  stroke-width: 1.2px;
+  fill: none;
+  pointer-events: none;
+}
+
+.dubois-chart-svg .dubois-guideline-rule {
+  stroke: var(--dubois-guideline, #8C7A6B);
+  stroke-opacity: 0.32;
+  stroke-dasharray: 3, 3;
+  fill: none;
+  pointer-events: none;
+}
+
+.dubois-chart-svg .dubois-axis-tick-label {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  fill: var(--dubois-charcoal, #52493E);
+}
+
+.dubois-chart-svg .dubois-axis-title {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--dubois-ink, #1A1615);
+}
+
+.dubois-chart-svg .dubois-value-label {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  fill: var(--dubois-ink, #1A1615);
+}
+
+.dubois-chart-svg .dubois-wing-banner {
+  font-family: var(--dubois-font-title, sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--dubois-ink, #1A1615);
+}
