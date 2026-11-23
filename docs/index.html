@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dubois-viz — Interactive Exhibition & Mix-and-Match Showcase</title>
+    <link rel="stylesheet" href="./dubois-viz.css" />
+    <style>
+      body {
+        margin: 0;
+        background: var(--dubois-parchment, #F4EFE6);
+        color: var(--dubois-ink, #1A1615);
+        font-family: var(--dubois-font-serif, Georgia, serif);
+      }
+      #whisper-host {
+        position: sticky;
+        top: 0;
+        z-index: 250;
+      }
+      .showcase-section {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 28px 20px 44px;
+        scroll-margin-top: 38px;
+        border-bottom: 1px dashed var(--dubois-guideline, #8C7A6B);
+      }
+      .showcase-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        gap: 20px;
+      }
+      .showcase-box {
+        height: 440px;
+        display: flex;
+        flex-direction: column;
+      }
+      .showcase-box--tall {
+        height: 620px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="whisper-host"></div>
+    <main id="showcase-root"></main>
+    <script type="module" src="./showcase.js"></script>
+  </body>
+</html>

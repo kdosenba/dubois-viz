@@ -2,6 +2,8 @@
 
 A framework-agnostic, strictly typed, **zero-dependency-per-chart** D3.js visualization library and design system inspired by W.E.B. Du Bois's 1900 Paris Exposition archival gouache plates.
 
+> **Live Interactive Showcase:** [**https://kdosenba.github.io/dubois-viz/**](https://kdosenba.github.io/dubois-viz/) — explore all 13 charts and interactive mix-and-match compositions (`SelectionBus`, `TimeWindowBus`, `ScaleGroup`, `FlipBookPlate`, `WhisperBar`). Pre-built static files also live in [`docs/`](docs/).
+
 - **13 standalone D3 charts** — every file in `src/charts/*.ts` has **zero local imports** (only `'d3'` and Web APIs). Install the full package *or* copy any single chart file straight into your codebase and own it.
 - **100% domain-agnostic** — built for financial analysis, music pop charts, SaaS cohorts, transit networks, public policy, climate telemetry, or any custom dataset.
 - **Composable mix-and-match architecture** — connect any combination of charts with headless sync buses (`ScaleGroup`, `SelectionBus`, `TimeWindowBus`, `PeerStateBus`), reusable Du Bois controls (`WhisperBar`, `VellumPopover`, `HierarchyEngine`, `LegendDrawer`), and pluggable plate layouts (`SinglePlate`, `SmallMultiplesPlate`, `SyncedStackPlate`, `FlipBookPlate`, `TitlePlate`, `StorylineShell`).
@@ -164,7 +166,7 @@ export function toSalesColumns(rows: readonly SalesRow[]): ColumnsData {
 npm run typecheck       # Strict tsc --noEmit + compile-time structural contract tests
 npm run verify          # Zero local imports, zero any/zod, domain-agnostic audit, CSS isolation, token parity
 npm run build:lib       # Emits dist/ ESM + .d.ts + CSS and validates every package.json export
-npm run build:showcase  # Builds static exhibition gallery into dist-showcase/
+npm run build:showcase  # Builds pre-built static exhibition gallery into docs/
 ```
 
 See [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md) for the complete visual specification and [LICENSE](LICENSE) (MIT).

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const OUT = path.join(ROOT, 'dist-showcase');
+const OUT = path.join(ROOT, 'docs');
 
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
@@ -13,8 +13,8 @@ await esbuild.build({
   bundle: true,
   format: 'esm',
   target: 'es2022',
-  sourcemap: true,
-  minify: false,
+  sourcemap: false,
+  minify: true,
   outfile: path.join(OUT, 'showcase.js'),
   loader: { '.css': 'css' },
 });
@@ -38,4 +38,4 @@ fs.copyFileSync(
   path.join(OUT, 'index.html')
 );
 
-console.log('✓ Showcase built cleanly to dist-showcase/');
+console.log('✓ Pre-built showcase written cleanly to docs/');

@@ -1,0 +1,1098 @@
+/* ==========================================================================
+   dubois-viz — Design Tokens (Surface, Palette A, Palette B, Typography)
+   Zero element selectors; safe to import in any application.
+   ========================================================================== */
+
+:root {
+  /* 1. Surface & Ink Tokens ("The Page Is the Border") */
+  --dubois-parchment: #F4EFE6;
+  --dubois-vellum: #EAE2D3;
+  --dubois-warm-tan: #D2B48C;
+  --dubois-unfocused: #DED6C6;
+  --dubois-ink: #1A1615;
+  --dubois-charcoal: #52493E;
+  --dubois-guideline: #8C7A6B;
+
+  /* 2. Palette A — Primary Categorical Gouache (100% Flat-Opaque) */
+  --dubois-crimson: #DC143C;
+  --dubois-cobalt: #2B5B84;
+  --dubois-emerald: #008055;
+  --dubois-gold: #FFD700;
+  --dubois-ochre: #E87722;
+  --dubois-violet: #753ABD;
+  --dubois-teal: #00A7B5;
+  --dubois-umber: #654321;
+
+  /* 3. Palette B — 14-Step Ordered Sequential Spectrum (Full Saturation) */
+  --dubois-seq-01: #A50050;
+  --dubois-seq-02: #DC143C;
+  --dubois-seq-03: #EE5340;
+  --dubois-seq-04: #FFA400;
+  --dubois-seq-05: #FFCD00;
+  --dubois-seq-06: #FAE053;
+  --dubois-seq-07: #DBE442;
+  --dubois-seq-08: #8FD14F;
+  --dubois-seq-09: #00A651;
+  --dubois-seq-10: #007A5E;
+  --dubois-seq-11: #00A7B5;
+  --dubois-seq-12: #2B5B84;
+  --dubois-seq-13: #6638B6;
+  --dubois-seq-14: #AF3BC9;
+
+  /* 4. Palette B — 14-Step Vellum-Tinted Partner Spectrum */
+  --dubois-seq-01-tint: #C96B8E;
+  --dubois-seq-02-tint: #E67384;
+  --dubois-seq-03-tint: #F09583;
+  --dubois-seq-04-tint: #F5C16C;
+  --dubois-seq-05-tint: #F7DB7C;
+  --dubois-seq-06-tint: #F6E89E;
+  --dubois-seq-07-tint: #E4E895;
+  --dubois-seq-08-tint: #BBE094;
+  --dubois-seq-09-tint: #6FC493;
+  --dubois-seq-10-tint: #6BA896;
+  --dubois-seq-11-tint: #74C7CE;
+  --dubois-seq-12-tint: #7E98AF;
+  --dubois-seq-13-tint: #A187CE;
+  --dubois-seq-14-tint: #CCA3D9;
+
+  /* 5. Three-Font Archival Typography Stack */
+  --dubois-font-title: 'Inter', 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --dubois-font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --dubois-font-mono: 'Space Mono', 'IBM Plex Mono', monospace;
+
+  /* 6. Structural Dimensions */
+  --dubois-whisper-bar-height: 32px;
+  --dubois-ink-border-width: 1px;
+  --dubois-ink-border-heavy: 1.5px;
+}
+
+
+/* ==========================================================================
+   dubois-viz — Optional Archival Google Fonts Import
+   Skip this file if self-hosting fonts or running offline.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+
+/* ==========================================================================
+   dubois-viz — Base Chart Root, Legend Strip, Tooltip & SVG Gouache Rules
+   Strictly scoped to .dubois-* classes; never mutates host page globals.
+   ========================================================================== */
+
+.dubois-chart-root,
+.dubois-chart-root *,
+.dubois-chart-root *::before,
+.dubois-chart-root *::after {
+  box-sizing: border-box;
+}
+
+.dubois-chart-root {
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  color: var(--dubois-ink, #1A1615);
+  font-family: var(--dubois-font-serif, Georgia, serif);
+  position: relative;
+  overflow: hidden;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.dubois-chart-svg-wrap {
+  flex: 1 1 0%;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dubois-chart-svg {
+  inline-size: 100%;
+  block-size: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.dubois-empty-notice {
+  margin: auto;
+  padding: 16px 24px;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dubois-charcoal, #52493E);
+  text-align: center;
+}
+
+/* Unified Legend Strip */
+.dubois-legend-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 16px;
+  padding: 4px 10px 6px;
+  flex-shrink: 0;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+}
+
+.dubois-chart-root--micro .dubois-legend-strip {
+  gap: 6px 10px;
+  font-size: 8.5px;
+  padding: 2px 4px 3px;
+}
+
+.dubois-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 1px 3px;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-item--interactive {
+  cursor: pointer;
+}
+
+.dubois-legend-item--interactive:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dubois-legend-item--switch {
+  color: var(--dubois-charcoal, #52493E);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 3px;
+}
+
+.dubois-legend-item--switch:hover {
+  color: var(--dubois-crimson, #DC143C);
+  text-decoration-style: solid;
+}
+
+.dubois-legend-item--active {
+  font-weight: 700;
+  color: var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-item--inactive {
+  opacity: 0.45;
+}
+
+.dubois-legend-swatch {
+  inline-size: 12px;
+  block-size: 12px;
+  border: 1px solid var(--dubois-ink, #1A1615);
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.dubois-legend-swatch--dashed {
+  inline-size: 16px;
+  block-size: 0;
+  background: transparent !important;
+  border: none;
+  border-block-start: 2px dashed var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-swatch--line {
+  inline-size: 16px;
+  block-size: 3px;
+  border: 0.5px solid var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-swatch--dot {
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+}
+
+/* Inline Mode Switcher Pill (used by charts with optional modes) */
+.dubois-mode-group {
+  display: inline-flex;
+  border: 1px solid var(--dubois-ink, #1A1615);
+  background-color: var(--dubois-vellum, #EAE2D3);
+}
+
+.dubois-mode-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--dubois-charcoal, #52493E);
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+.dubois-mode-btn + .dubois-mode-btn {
+  border-inline-start: 1px solid var(--dubois-ink, #1A1615);
+}
+
+.dubois-mode-btn--active {
+  background-color: var(--dubois-ink, #1A1615);
+  color: var(--dubois-parchment, #F4EFE6);
+}
+
+/* Tactile Vellum Tooltip */
+.dubois-exhibition-tooltip {
+  position: fixed;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  border: 2px solid var(--dubois-ink, #1A1615);
+  box-shadow: 4px 4px 0px var(--dubois-ink, #1A1615);
+  border-radius: 0;
+  padding: 0;
+  min-inline-size: min(210px, calc(100vw - 16px));
+  max-inline-size: min(340px, calc(100vw - 16px));
+  pointer-events: none;
+  z-index: 1200;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 11px;
+  color: var(--dubois-ink, #1A1615);
+  box-sizing: border-box;
+}
+
+.dubois-exhibition-tooltip-header {
+  background-color: var(--dubois-ink, #1A1615);
+  color: var(--dubois-parchment, #F4EFE6);
+  padding: 6px 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dubois-exhibition-tooltip-swatch {
+  inline-size: 10px;
+  block-size: 10px;
+  border: 1px solid var(--dubois-parchment, #F4EFE6);
+  flex-shrink: 0;
+}
+
+.dubois-exhibition-tooltip-body {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dubois-exhibition-tooltip-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dubois-exhibition-tooltip-key {
+  color: var(--dubois-charcoal, #52493E);
+  font-weight: 400;
+}
+
+.dubois-exhibition-tooltip-val {
+  color: var(--dubois-ink, #1A1615);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Canonical SVG Gouache & Ink Rules */
+.dubois-chart-svg .dubois-gouache-mark {
+  fill-opacity: 1 !important;
+  stroke: var(--dubois-ink, #1A1615);
+  stroke-width: 1px;
+}
+
+.dubois-chart-svg .dubois-benchmark-tick {
+  stroke: var(--dubois-ink, #1A1615);
+  stroke-width: 1.5px;
+  stroke-dasharray: 2, 2;
+  fill: none;
+  pointer-events: none;
+}
+
+.dubois-chart-svg .dubois-benchmark-cap {
+  stroke: var(--dubois-ink, #1A1615);
+  stroke-width: 1.5px;
+  stroke-dasharray: 3, 2;
+  fill: none;
+  pointer-events: none;
+}
+
+.dubois-chart-svg .dubois-axis-spine {
+  stroke: var(--dubois-ink, #1A1615);
+  stroke-width: 1.2px;
+  fill: none;
+  pointer-events: none;
+}
+
+.dubois-chart-svg .dubois-guideline-rule {
+  stroke: var(--dubois-guideline, #8C7A6B);
+  stroke-opacity: 0.32;
+  stroke-dasharray: 3, 3;
+  fill: none;
+  pointer-events: none;
+}
+
+.dubois-chart-svg .dubois-axis-tick-label {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  fill: var(--dubois-charcoal, #52493E);
+}
+
+.dubois-chart-svg .dubois-axis-title {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--dubois-ink, #1A1615);
+}
+
+.dubois-chart-svg .dubois-value-label {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  fill: var(--dubois-ink, #1A1615);
+}
+
+.dubois-chart-svg .dubois-wing-banner {
+  font-family: var(--dubois-font-title, sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--dubois-ink, #1A1615);
+}
+
+
+/* ==========================================================================
+   dubois-viz — Controls (Whisper Bar, Segmented Toggles, Popover, Legend Drawer)
+   Strictly scoped to .dubois-* classes.
+   ========================================================================== */
+
+.dubois-whisper-bar,
+.dubois-whisper-bar *,
+.dubois-popover,
+.dubois-popover *,
+.dubois-legend-drawer,
+.dubois-legend-drawer * {
+  box-sizing: border-box;
+}
+
+/* 32px Top Whisper Bar */
+.dubois-whisper-bar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 200;
+  inline-size: 100%;
+  block-size: var(--dubois-whisper-bar-height, 32px);
+  min-block-size: 30px;
+  max-block-size: 34px;
+  background-color: var(--dubois-vellum, #EAE2D3);
+  border-block-end: 1px solid var(--dubois-ink, #1A1615);
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(8px, 1.2vw, 16px);
+  padding: 0 clamp(10px, 1.8vw, 24px);
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  user-select: none;
+}
+
+.dubois-whisper-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.dubois-whisper-slot {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.dubois-whisper-slot--push-right {
+  margin-inline-start: auto;
+}
+
+.dubois-whisper-sep {
+  inline-size: 1px;
+  block-size: 14px;
+  background-color: var(--dubois-guideline, #8C7A6B);
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.dubois-whisper-key {
+  color: var(--dubois-charcoal, #52493E);
+  font-weight: 400;
+}
+
+.dubois-whisper-trigger,
+.dubois-whisper-select {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 2px 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--dubois-ink, #1A1615);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dubois-whisper-trigger:hover,
+.dubois-whisper-select:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dubois-whisper-trigger:focus-visible,
+.dubois-whisper-select:focus-visible {
+  outline: 1.5px solid var(--dubois-ink, #1A1615);
+  outline-offset: 1px;
+}
+
+/* Inline Segmented Toggle inside Whisper Bar */
+.dubois-segmented-toggle {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--dubois-ink, #1A1615);
+  background-color: var(--dubois-parchment, #F4EFE6);
+}
+
+.dubois-segmented-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--dubois-charcoal, #52493E);
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  cursor: pointer;
+}
+
+.dubois-segmented-btn + .dubois-segmented-btn {
+  border-inline-start: 1px solid var(--dubois-ink, #1A1615);
+}
+
+.dubois-segmented-btn.is-active {
+  background-color: var(--dubois-ink, #1A1615);
+  color: var(--dubois-parchment, #F4EFE6);
+}
+
+/* Floating Searchable Grouped Vellum Popover */
+.dubois-popover {
+  position: fixed;
+  z-index: 400;
+  inline-size: min(400px, calc(100vw - 16px));
+  max-block-size: min(440px, 72vh);
+  display: none;
+  flex-direction: column;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  border: 2px solid var(--dubois-ink, #1A1615);
+  box-shadow: 4px 4px 0px var(--dubois-ink, #1A1615);
+  font-family: var(--dubois-font-mono, monospace);
+  color: var(--dubois-ink, #1A1615);
+  text-align: left;
+}
+
+.dubois-popover.is-open {
+  display: flex;
+}
+
+.dubois-popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  background-color: var(--dubois-ink, #1A1615);
+  color: var(--dubois-parchment, #F4EFE6);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dubois-popover-action-btn {
+  border: 1px solid var(--dubois-parchment, #F4EFE6);
+  background: transparent;
+  color: var(--dubois-parchment, #F4EFE6);
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.dubois-popover-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 6px 10px;
+  background-color: var(--dubois-vellum, #EAE2D3);
+  border-block-end: 1px solid var(--dubois-ink, #1A1615);
+}
+
+.dubois-popover-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 6px;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  border: 1px solid var(--dubois-ink, #1A1615);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--dubois-ink, #1A1615);
+  cursor: pointer;
+}
+
+.dubois-popover-search-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-block-end: 1px solid var(--dubois-guideline, #8C7A6B);
+}
+
+.dubois-popover-search {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  border: 1px solid var(--dubois-ink, #1A1615);
+  background-color: var(--dubois-parchment, #F4EFE6);
+  padding: 5px 8px;
+  font-family: inherit;
+  font-size: 10px;
+  color: var(--dubois-ink, #1A1615);
+}
+
+.dubois-popover-list {
+  overflow-y: auto;
+  padding: 6px 10px 10px;
+  flex: 1 1 auto;
+}
+
+.dubois-popover-group-heading {
+  margin: 8px 0 3px;
+  padding-block-end: 2px;
+  border-block-end: 1px dashed var(--dubois-guideline, #8C7A6B);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: var(--dubois-charcoal, #52493E);
+  text-transform: uppercase;
+}
+
+.dubois-popover-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+  font-size: 10px;
+  cursor: pointer;
+  border-inline-start: 2px solid transparent;
+}
+
+.dubois-popover-row:hover {
+  background-color: var(--dubois-vellum, #EAE2D3);
+}
+
+.dubois-popover-row.is-selected {
+  background-color: var(--dubois-vellum, #EAE2D3);
+  border-inline-start-color: var(--dubois-crimson, #DC143C);
+  font-weight: 700;
+}
+
+.dubois-popover-row.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.dubois-popover-meta {
+  font-size: 9px;
+  color: var(--dubois-charcoal, #52493E);
+  flex-shrink: 0;
+}
+
+/* Collapsible "How to Read This Chart" Legend Drawer */
+.dubois-legend-drawer {
+  position: relative;
+  display: inline-block;
+  color: var(--dubois-ink, #1A1615);
+  z-index: 40;
+}
+
+.dubois-legend-drawer-trigger {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-inline-size: 210px;
+  background: transparent;
+  border: none;
+  border-block-end: 1.2px solid var(--dubois-ink, #1A1615);
+  padding: 2px 2px 4px;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  cursor: pointer;
+}
+
+.dubois-legend-drawer-caret {
+  transition: transform 160ms ease;
+}
+
+.dubois-legend-drawer.is-open .dubois-legend-drawer-caret {
+  transform: rotate(180deg);
+}
+
+.dubois-legend-drawer-panel {
+  position: absolute;
+  inset-block-start: calc(100% + 6px);
+  inset-inline-start: 0;
+  min-inline-size: min(460px, calc(100vw - 32px));
+  max-inline-size: min(760px, calc(100vw - 32px));
+  background-color: var(--dubois-parchment, #F4EFE6);
+  border: 1.5px solid var(--dubois-ink, #1A1615);
+  box-shadow: 5px 5px 0px var(--dubois-ink, #1A1615);
+  padding: 12px 16px;
+  display: none;
+  z-index: 350;
+  font-family: var(--dubois-font-serif, Georgia, serif);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--dubois-ink, #1A1615);
+}
+
+.dubois-legend-drawer.is-open .dubois-legend-drawer-panel {
+  display: block;
+}
+
+
+/* ==========================================================================
+   dubois-viz — Pluggable Exhibition Plate Layouts
+   SinglePlate, SmallMultiplesPlate, SyncedStackPlate, FlipBookPlate, TitlePlate
+   Strictly scoped to .dubois-* classes.
+   ========================================================================== */
+
+.dubois-plate,
+.dubois-plate * {
+  box-sizing: border-box;
+}
+
+.dubois-plate {
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 360px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  color: var(--dubois-ink, #1A1615);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(10px, 1.6vw, 20px) clamp(14px, 2.2vw, 28px);
+}
+
+.dubois-plate-header {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+  align-items: start;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-block-end: 6px;
+}
+
+.dubois-plate-header-center {
+  text-align: center;
+  min-inline-size: 0;
+}
+
+.dubois-plate-header-left,
+.dubois-plate-header-right {
+  min-inline-size: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.dubois-plate-header-right {
+  justify-content: flex-end;
+}
+
+.dubois-plate-numeral {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dubois-charcoal, #52493E);
+  margin-block-end: 2px;
+}
+
+.dubois-plate-title {
+  margin: 0;
+  font-family: var(--dubois-font-title, sans-serif);
+  font-weight: 800;
+  font-size: clamp(15px, 1.75vw, 22px);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  line-height: 1.15;
+}
+
+.dubois-plate-subtitle {
+  margin: 4px auto 0;
+  font-family: var(--dubois-font-serif, Georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(13px, 1.15vw, 16px);
+  line-height: 1.35;
+  color: var(--dubois-charcoal, #52493E);
+  max-inline-size: 720px;
+}
+
+.dubois-plate-legend-host {
+  flex-shrink: 0;
+  inline-size: 100%;
+  margin-block-end: 4px;
+}
+
+.dubois-plate-stage {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative;
+  inline-size: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dubois-corner-inset {
+  inline-size: 260px;
+  block-size: 136px;
+  flex-shrink: 0;
+}
+
+/* Small Multiples / Compare / Atlas Grid */
+.dubois-multiples-grid {
+  flex: 1 1 0%;
+  min-block-size: 0;
+  inline-size: 100%;
+  display: grid;
+  gap: 8px 12px;
+}
+
+.dubois-multiples-grid--atlas {
+  overflow-y: auto;
+  overflow-x: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-auto-rows: 270px;
+  gap: 2px;
+  align-content: start;
+}
+
+.dubois-multiples-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+  background-color: var(--dubois-parchment, #F4EFE6);
+}
+
+.dubois-multiples-cell--alt {
+  background-color: var(--dubois-vellum, #EAE2D3);
+}
+
+.dubois-multiples-cell-header {
+  text-align: center;
+  padding: 4px 6px 2px;
+  flex-shrink: 0;
+}
+
+.dubois-multiples-cell-title {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: var(--dubois-font-title, sans-serif);
+  font-weight: 800;
+  font-size: 11.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  cursor: default;
+  padding: 0;
+}
+
+.dubois-multiples-cell-title--clickable {
+  cursor: pointer;
+}
+
+.dubois-multiples-cell-title--clickable:hover {
+  color: var(--dubois-crimson, #DC143C);
+  text-decoration: underline;
+}
+
+.dubois-multiples-cell-subtitle {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 9px;
+  color: var(--dubois-charcoal, #52493E);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dubois-multiples-cell-body {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative;
+}
+
+.dubois-atlas-group-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-inline-start: 5px solid var(--dubois-crimson, #DC143C);
+  background-color: var(--dubois-parchment, #F4EFE6);
+}
+
+.dubois-atlas-group-tile--alt {
+  border-inline-start-color: var(--dubois-cobalt, #2B5B84);
+  background-color: var(--dubois-vellum, #EAE2D3);
+}
+
+/* Synced Stack Plate (Vertically aligned sections + diamond dividers) */
+.dubois-stack-container {
+  flex: 1 1 0%;
+  min-block-size: 0;
+  inline-size: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dubois-stack-section {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+.dubois-stack-section-title {
+  font-family: var(--dubois-font-title, sans-serif);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  padding: 2px 0 3px;
+  flex-shrink: 0;
+}
+
+.dubois-stack-section-body {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative;
+}
+
+.dubois-diamond-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  flex-shrink: 0;
+}
+
+.dubois-diamond-divider::before,
+.dubois-diamond-divider::after {
+  content: '';
+  flex: 1 1 0%;
+  block-size: 1px;
+  background-color: var(--dubois-guideline, #8C7A6B);
+  opacity: 0.5;
+}
+
+.dubois-diamond-mark {
+  inline-size: 7px;
+  block-size: 7px;
+  background-color: var(--dubois-ink, #1A1615);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* FlipBook Plate */
+.dubois-flipbook-stage {
+  position: relative;
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: hidden;
+}
+
+.dubois-flipbook-page {
+  inline-size: 100%;
+  block-size: 100%;
+  background-color: var(--dubois-parchment, #F4EFE6);
+}
+
+.dubois-flipbook-nav {
+  position: absolute;
+  inset-block-end: 10px;
+  inset-inline-end: 14px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--dubois-vellum, #EAE2D3);
+  border: 1.5px solid var(--dubois-ink, #1A1615);
+  padding: 3px 8px;
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dubois-flipbook-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--dubois-ink, #1A1615);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+.dubois-flipbook-btn:hover:not(:disabled) {
+  color: var(--dubois-crimson, #DC143C);
+}
+
+.dubois-flipbook-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Title Cover Plate */
+.dubois-title-plate {
+  position: relative;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 460px;
+  background-color: var(--dubois-parchment, #F4EFE6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dubois-title-plate-bg {
+  flex: 1 1 0%;
+  min-block-size: 0;
+  inline-size: 100%;
+  order: 2;
+}
+
+.dubois-title-plate-overlay {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  order: 1;
+  padding: clamp(16px, 2.4vw, 30px) clamp(20px, 4vw, 56px) 6px;
+  text-align: center;
+}
+
+.dubois-title-plate-kicker {
+  font-family: var(--dubois-font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dubois-crimson, #DC143C);
+  margin-block-end: 8px;
+}
+
+.dubois-title-plate-heading {
+  margin: 0 auto;
+  max-inline-size: 860px;
+  font-family: var(--dubois-font-title, sans-serif);
+  font-weight: 800;
+  font-size: clamp(22px, 3vw, 40px);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--dubois-ink, #1A1615);
+  line-height: 1.12;
+}
+
+.dubois-title-plate-lead {
+  margin: 10px auto 0;
+  max-inline-size: 660px;
+  font-family: var(--dubois-font-serif, Georgia, serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.4vw, 19px);
+  color: var(--dubois-charcoal, #52493E);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .dubois-plate-header {
+    grid-template-columns: 1fr;
+  }
+
+  .dubois-corner-inset {
+    display: none;
+  }
+}
